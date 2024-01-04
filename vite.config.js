@@ -16,16 +16,19 @@ const htmlPlugin = () => {
   return {
     name: 'html-transform',
     async transformIndexHtml(html) {
-      console.log(path.join(__dirname, 'pdf.csv'));
-      const csv = readFileSync(path.join(__dirname, 'pdf.csv')).toString();
+      const shares = parseInt(readFileSync(path.join(__dirname, 'data/shares.txt')).toString());
+
+      const csv = readFileSync(path.join(__dirname, 'data/pdf.csv')).toString();
       const rows = csv.split('\n');
 
       const prices = await Promise.all(rows.slice(0, -1).map(e => fetchPrice(e.split(',')[0])));
       prices.push(1);
-
       const aum = rows.map((row, index) => row.split(',')[2] * prices[index]).reduce((acc, val) => acc + val);
+      const nav = aum / shares;
 
+      const NAV = parseInt(nav).toLocaleString();
       const AUM = aum.toLocaleString();
+      const SHARES = shares.toLocaleString();
       const PDF = rows.map((row, index) => {
           const items = row.split(',');
           const asset_value = items[2] * prices[index];
@@ -44,7 +47,7 @@ const htmlPlugin = () => {
         .toSorted((a, b) => (a[1].search('원화예금') *a[0]) - (b[1].search('원화예금') * b[0]))
         .map(e => e[1])
         .join('');
-      return html.replace('__AUM__', AUM).replace('__PDF__', PDF);
+      return html.replace('__NAV__', NAV).replace('__AUM__', AUM).replace('__SHARES__', SHARES).replace('__PDF__', PDF);
     },
   };
 };
