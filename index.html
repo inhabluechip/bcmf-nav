@@ -1,13 +1,78 @@
 <!doctype html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BCMF NAV</title>
-    <link rel="stylesheet" href="/src/main.css" />
-  </head>
-  <body>
-    <h1 class="text-3xl font-bold underline">Hello world!</h1>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BCMF NAV</title>
+  <link rel="stylesheet" href="/src/main.css" />
+</head>
+
+<body>
+  <div class="w-full">
+    <main class="max-w-screen-sm mx-auto p-10">
+      <header class="relative mt-10">
+        <img class="absolute right-0 h-10" src="/public/logo.jpg" alt="Blue Chip Mutual Fund Logo">
+        <h1 class="text-5xl font-bold mb-4">BCMF</h1>
+        <h2 class="text-3xl font-bold mb-4">Blue Chip Mutual Fund</h2>
+        <hr class="h-1 bg-gradient-to-r from-blue-500 to-red-500">
+      </header>
+      <section class="mt-8">
+        <table class="w-full -m-1">
+          <tbody>
+            <tr>
+              <td class="font-bold p-1">기준가(NAV)</td>
+              <td class="p-1">12,340원</td>
+            </tr>
+            <tr>
+              <td class="font-bold p-1">최초설정일(Inception Date)</td>
+              <td class="p-1">2023년 1월 1일</td>
+            </tr>
+            <tr>
+              <td class="font-bold p-1">순자산총액(AUM)</td>
+              <td class="p-1">12,345,670원</td>
+            </tr>
+            <tr>
+              <td class="font-bold p-1">거래단위</td>
+              <td class="p-1">1주</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="mt-8">
+        <h3 class="text-xl font-bold mb-2">구성종목(PDF)</h3>
+        <hr class="h-0.5 mb-2 bg-gradient-to-r from-blue-500 to-red-500">
+        <table class="w-full -m-1">
+          <thead>
+            <tr>
+              <th class="p-1">종목코드</th>
+              <th class="p-1">종목명</th>
+              <th class="p-1">수량(주)</th>
+              <th class="p-1">평가금액(원)</th>
+              <th class="p-1">비중(%)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-1 text-center">005930</td>
+              <td class="p-1 text-center">삼성전자</td>
+              <td class="p-1 text-center">100</td>
+              <td class="p-1 text-center">123,456,780</td>
+              <td class="p-1 text-center">99.9%</td>
+            </tr>
+            <tr>
+              <td class="p-1 text-center">-</td>
+              <td class="p-1 text-center">원화예금</td>
+              <td class="p-1 text-center">-</td>
+              <td class="p-1 text-center">123</td>
+              <td class="p-1 text-center">0.01%</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
 </html>
