@@ -31,14 +31,14 @@ const htmlPlugin = () => {
       const SHARES = shares.toLocaleString();
       const PDF = rows.map((row, index) => {
           const items = row.split(',');
-          const asset_value = items[2] * prices[index];
+          const asset_value = parseInt(items[2]) * prices[index];
           const weight = asset_value / aum * 100;
           return [
             weight,
             `<tr>
               <td class="p-1">${items[0]}</td>
               <td class="p-1">${items[1]}</td>
-              <td class="p-1">${items[2].toLocaleString()}</td>
+              <td class="p-1">${parseInt(items[2]).toLocaleString()}</td>
               <td class="p-1 hidden sm:table-cell">${asset_value.toLocaleString()}</td>
               <td class="p-1">${weight.toFixed(2)}</td>
             </tr>`
