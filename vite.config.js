@@ -36,11 +36,11 @@ const htmlPlugin = () => {
           return [
             weight,
             `<tr>
-              <td class="p-1 text-center">${items[0]}</td>
-              <td class="p-1 text-center">${items[1]}</td>
-              <td class="p-1 text-center">${items[2]}</td>
-              <td class="p-1 text-center">${asset_value.toLocaleString()}</td>
-              <td class="p-1 text-center">${weight.toFixed(2)}</td>
+              <td class="p-1">${items[0]}</td>
+              <td class="p-1">${items[1]}</td>
+              <td class="p-1">${items[2]}</td>
+              <td class="p-1">${asset_value.toLocaleString()}</td>
+              <td class="p-1">${weight.toFixed(2)}</td>
             </tr>`
           ];
         })
