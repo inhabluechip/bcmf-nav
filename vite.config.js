@@ -47,7 +47,11 @@ const htmlPlugin = () => {
         .toSorted((a, b) => (a[1].search('원화예금') *a[0]) - (b[1].search('원화예금') * b[0]))
         .map(e => e[1])
         .join('');
-      return html.replace('__NAV__', NAV).replace('__AUM__', AUM).replace('__SHARES__', SHARES).replace('__PDF__', PDF);
+      return html.replace(/"\/assets/g, '"./assets')
+        .replace('__NAV__', NAV)
+        .replace('__AUM__', AUM)
+        .replace('__SHARES__', SHARES)
+        .replace('__PDF__', PDF);
     },
   };
 };
