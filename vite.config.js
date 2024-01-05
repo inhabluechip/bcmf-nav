@@ -16,6 +16,9 @@ const htmlPlugin = () => {
   return {
     name: 'html-transform',
     async transformIndexHtml(html) {
+      const now = new Date();
+      const LAST_UPDATED = `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일`;
+
       const shares = parseInt(readFileSync(path.join(__dirname, 'data/shares.txt')).toString());
 
       const csv = readFileSync(path.join(__dirname, 'data/pdf.csv')).toString();
@@ -47,7 +50,9 @@ const htmlPlugin = () => {
         .toSorted((a, b) => (a[1].search('원화예금') *a[0]) - (b[1].search('원화예금') * b[0]))
         .map(e => e[1])
         .join('');
+
       return html.replace(/"\/assets/g, '"./assets')
+        .replace('__LAST_UPDATED__', LAST_UPDATED)
         .replace('__NAV__', NAV)
         .replace('__AUM__', AUM)
         .replace('__SHARES__', SHARES)
