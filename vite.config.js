@@ -31,7 +31,8 @@ const htmlPlugin = () => {
 
       const assets = readFileSync(path.join(__dirname, 'data/pdf.csv'))
         .toString()
-        .split('\n')
+        .trim()
+        .split(/\r?\n|\r|\n/g)
         .map(line => line.split(','))
         .reduce((obj, [ticker, name, shares]) => {
           obj[ticker] = { ticker, name, shares };
