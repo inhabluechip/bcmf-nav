@@ -12,7 +12,7 @@
 
 <body>
   <div class="w-full">
-    <main class="max-w-screen-sm mx-auto p-10">
+    <main class="max-w-screen-md mx-auto p-10">
       <header class="relative mt-10">
         <img class="absolute right-0 h-10" src="./logo.jpg" alt="Blue Chip Mutual Fund Logo">
         <span class="absolute top-10 right-0 text-[0.6rem] text-gray-500">기준일: __LAST_UPDATED__</span>
@@ -55,7 +55,8 @@
               <th class="p-1">종목코드</th>
               <th class="p-1">종목명</th>
               <th class="p-1">수량(주)</th>
-              <th class="p-1 hidden sm:table-cell">평가금액(원)</th>
+              <th class="p-1 hidden md:table-cell">평가금액(원)</th>
+              <th class="p-1 hidden sm:table-cell">평가손익(%)</th>
               <th class="p-1">비중(%)</th>
             </tr>
           </thead>
@@ -82,11 +83,12 @@
               <td class="p-1">__CASH_WEIGHT__%</td>
             </tr>
             <tr>
-              <td class="font-bold p-1">포트폴리오 베타</td>
+              <td class="font-bold p-1">포트폴리오 52주 베타</td>
               <td class="p-1">__BETA__</td>
             </tr>
           </tbody>
         </table>
+        <span class="text-red-500 text-blue-500"></span>
       </section>
       <footer class="mt-8">
         <hr class="h-0.5 mb-1 bg-gradient-to-r from-blue-500 to-red-500">

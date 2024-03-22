@@ -34,8 +34,8 @@ const htmlPlugin = () => {
         .trim()
         .split(/\r?\n|\r|\n/g)
         .map(line => line.split(','))
-        .reduce((obj, [ticker, name, shares]) => {
-          obj[ticker] = { ticker, name, shares };
+        .reduce((obj, [ticker, name, shares, priceBuy]) => {
+          obj[ticker] = { ticker, name, shares, priceBuy };
           return obj;
         }, {});
 
@@ -46,12 +46,15 @@ const htmlPlugin = () => {
         if (ticker == 'KRW') {
           assets[ticker].price = 1;
           assets[ticker].marketBeta = 0;
+          assets[ticker].priceReturn = 0;
         } else if (ticker == '069500') {
           assets[ticker].price = await fetchPrice(ticker);
           assets[ticker].marketBeta = 1;
+          assets[ticker].priceReturn = (assets[ticker].price - assets[ticker].priceBuy) / assets[ticker].priceBuy;
         } else {
           assets[ticker].price = await fetchPrice(ticker);
           assets[ticker].marketBeta = await fetchMarketBeta(ticker);
+          assets[ticker].priceReturn = (assets[ticker].price - assets[ticker].priceBuy) / assets[ticker].priceBuy;
         }
         assets[ticker].marketValue = assets[ticker].shares * assets[ticker].price;
       }
@@ -77,7 +80,8 @@ const htmlPlugin = () => {
               <td class="p-1">${asset.ticker}</td>
               <td class="p-1">${asset.name}</td>
               <td class="p-1">${parseInt(asset.shares).toLocaleString()}</td>
-              <td class="p-1 hidden sm:table-cell">${asset.marketValue.toLocaleString()}</td>
+              <td class="p-1 hidden md:table-cell">${asset.marketValue.toLocaleString()}</td>
+              <td class="p-1 hidden sm:table-cell ${asset.priceReturn > 0 ? 'text-red-500' : ''} ${asset.priceReturn < 0 ? 'text-blue-500' : ''}">${asset.priceReturn > 0 ? '+' : ''}${asset.priceReturn != 0 ? (asset.priceReturn * 100).toFixed(2) : '-'}</td>
               <td class="p-1">${weightPercent.toFixed(2)}</td>
             </tr>`
         ];
