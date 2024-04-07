@@ -1,5 +1,6 @@
 /** @type {import('vite').UserConfig} */
 import { readFileSync } from 'fs'
+import { minify } from 'html-minifier-terser';
 import iconv from 'iconv-lite'
 import path from 'path'
 
@@ -89,7 +90,7 @@ const htmlPlugin = () => {
         .map(row => row[1])
         .join('');
 
-      return html.replace(/"\/assets/g, '"./assets')
+      const htmlInjected = html.replace(/"\/assets/g, '"./assets')
         .replace('__LAST_UPDATED__', LAST_UPDATED)
         .replace('__SHARES__', SHARES)
         .replace('__AUM__', AUM)
@@ -99,6 +100,9 @@ const htmlPlugin = () => {
         .replace('__STOCK_WEIGHT__', STOCK_WEIGHT)
         .replace('__CASH_WEIGHT__', CASH_WEIGHT)
         .replace('__PDF__', PDF);
+
+      const htmlMinified = await minify(htmlInjected, { collapseWhitespace: true });
+      return htmlMinified;
     },
   };
 };
