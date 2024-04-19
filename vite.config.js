@@ -48,7 +48,7 @@ const htmlPlugin = () => {
           assets[ticker].price = 1;
           assets[ticker].marketBeta = 0;
           assets[ticker].priceReturn = 0;
-        } else if (ticker == '069500') {
+        } else if (ticker == '069500' || ticker == '462900') { // ETF는 여기로 예외처리 필요
           assets[ticker].price = await fetchPrice(ticker);
           assets[ticker].marketBeta = 1;
           assets[ticker].priceReturn = (assets[ticker].price - assets[ticker].priceBuy) / assets[ticker].priceBuy;
