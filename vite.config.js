@@ -1,6 +1,7 @@
 /** @type {import('vite').UserConfig} */
 import { readFileSync } from 'fs'
 import { minify } from 'html-minifier-terser';
+import tailwindcss from "@tailwindcss/vite";
 import iconv from 'iconv-lite'
 import path from 'path'
 
@@ -110,5 +111,6 @@ const htmlPlugin = () => {
 export default {
   plugins: [
     htmlPlugin(),
+    tailwindcss(),
   ],
 }
