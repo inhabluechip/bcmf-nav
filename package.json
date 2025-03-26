@@ -17,5 +17,8 @@
     "svgo": "^3.3.2",
     "tailwindcss": "^4.0.12",
     "vite": "^6.2.1"
+  },
+  "dependencies": {
+    "npm": "^11.2.0"
   }
 }
