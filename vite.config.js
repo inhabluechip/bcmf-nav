@@ -118,6 +118,9 @@ const htmlPlugin = () => {
       const nav = aum / sharesOutstanding;
       const NAV = parseInt(nav).toLocaleString();
 
+      const startingNav = 15248; // 2025년 1월 1일 기준
+      const YTD_RETURN = `<span class="${nav > startingNav ? 'text-red-500' : ''} ${nav < startingNav ? 'text-blue-500' : ''}">${nav > startingNav ? '+' : ''}${((nav - startingNav) / startingNav * 100).toFixed(2)}%</span>`;
+
       const beta = sum(Object.values(assets).map(asset => asset.marketValue / aum * asset.marketBeta));
       const BETA = beta.toFixed(2);
 
@@ -157,6 +160,7 @@ const htmlPlugin = () => {
         .replace('__SHARES__', SHARES)
         .replace('__AUM__', AUM)
         .replace('__NAV__', NAV)
+        .replace('__YTD_RETURN__', YTD_RETURN)
         .replace('__BETA__', BETA)
         .replace('__HOLDINGS__', HOLDINGS)
         .replace('__STOCK_WEIGHT__', STOCK_WEIGHT)
