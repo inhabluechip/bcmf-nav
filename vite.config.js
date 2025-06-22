@@ -29,9 +29,16 @@ const fetchMarketBeta = async (ticker) => {
   const res = await fetch(`https://navercomp.wisereport.co.kr/v2/company/c1010001.aspx?cmp_cd=${ticker}`);
   const text = await res.text();
 
-  const marketBeta = parseFloat(text.match(/52주베타<\/th>[\n\s]+<td class="num">[\n\s]+([\d.-]+)[\n\s]+<\/td>/)[1]);
-  return marketBeta;
+  const match = text.match(/52주베타<\/th>[\n\s]+<td class="num">[\n\s]*([\d.-]+)[\n\s]*<\/td>/);
+
+  if (!match || !match[1]) {
+    console.warn(`❗ [${ticker}]에서 52주 베타 값을 찾을 수 없습니다. 기본값 1.0 사용.`);
+    return 1.0;  // 기본값 설정 (예: 1.0 또는 0)
+  }
+
+  return parseFloat(match[1]);
 };
+
 
 const fetchMarketBeta_ETF = async (ticker) => {
   const res = await fetch(`https://navercomp.wisereport.co.kr/v2/ETF/index.aspx?cmp_cd=${ticker}`);
