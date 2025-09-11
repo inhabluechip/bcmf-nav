@@ -29,23 +29,15 @@ const fetchMarketBeta = async (ticker) => {
   const res = await fetch(`https://navercomp.wisereport.co.kr/v2/company/c1010001.aspx?cmp_cd=${ticker}`);
   const text = await res.text();
 
-  const match = text.match(/52주베타<\/th>[\n\s]+<td class="num">[\n\s]*([\d.-]+)[\n\s]*<\/td>/);
-
+  let match = text.match(/52주베타<\/th>[\n\s]+<td class="num">[\n\s]*([\d.-]+)[\n\s]*<\/td>/);
   if (!match || !match[1]) {
-    console.warn(`❗ [${ticker}]에서 52주 베타 값을 찾을 수 없습니다. 기본값 1.0 사용.`);
-    return 1.0;  // 기본값 설정 (예: 1.0 또는 0)
+    match = text.match(/"YR_BETA":"([\d.-]+)"/);
   }
-
+  if (!match || !match[1]) {
+    console.warn(`❗Could not find market beta for ticker ${ticker}, defaulting to 1.0`);
+    return 1.0;
+  }
   return parseFloat(match[1]);
-};
-
-
-const fetchMarketBeta_ETF = async (ticker) => {
-  const res = await fetch(`https://navercomp.wisereport.co.kr/v2/ETF/index.aspx?cmp_cd=${ticker}`);
-  const text = await res.text();
-
-  const marketBeta = parseFloat(text.match(/"YR_BETA":"([\d.-]+)"/)[1]);
-  return marketBeta;
 };
 
 const drawDonutChart = (data, width, height) => {
@@ -102,11 +94,7 @@ const htmlPlugin = () => {
         } else { // 네이버 증권에서 가격을 가져올 수 있는 종목들
           assets[ticker].price = await fetchMarketPrice(ticker);
           assets[ticker].priceReturn = (assets[ticker].price - assets[ticker].priceBuy) / assets[ticker].priceBuy;
-          if (ticker == '069500' || ticker == '462900') { // ETF는 52주 베타 가져올 때 예외처리 필요
-            assets[ticker].marketBeta = await fetchMarketBeta_ETF(ticker)
-          } else {
-            assets[ticker].marketBeta = await fetchMarketBeta(ticker);
-          }
+          assets[ticker].marketBeta = await fetchMarketBeta(ticker);
         }
         assets[ticker].marketValue = assets[ticker].shares * assets[ticker].price;
 
