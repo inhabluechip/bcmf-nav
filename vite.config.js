@@ -113,7 +113,8 @@ const htmlPlugin = () => {
       const nav = aum / sharesOutstanding;
       const NAV = parseInt(nav).toLocaleString();
 
-      const startingNav = 15248; // 2025년 1월 1일 기준
+      // const startingNav = 15248; // 2025년 1월 1일 기준
+      const startingNav = 24972; // 2026년 1월 1일 기준
       const YTD_RETURN = `<span class="${nav > startingNav ? 'text-red-500' : ''} ${nav < startingNav ? 'text-blue-500' : ''}">${nav > startingNav ? '+' : ''}${((nav - startingNav) / startingNav * 100).toFixed(2)}%</span>`;
 
       const beta = sum(Object.values(assets).map(asset => asset.marketValue / aum * asset.marketBeta));
