@@ -21,8 +21,7 @@ const fetchMarketPrice = async (ticker) => {
   const buf = await res.arrayBuffer();
   const text = iconv.decode(Buffer.from(buf), 'euc-kr').toString();
 
-  const price = parseInt(text.match(/현재가\s([\d,]+)\s/)[1].replace(',', ''));
-  return price;
+const price = parseInt(text.match(/현재가\s([\d,]+)\s/)[1].replace(/,/g, ''));  return price;
 };
 
 const fetchMarketBeta = async (ticker) => {
